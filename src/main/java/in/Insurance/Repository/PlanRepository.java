@@ -9,6 +9,7 @@ import in.Insurance.Entity.PlanEntity;
 
 public interface PlanRepository extends JpaRepository<PlanEntity, Serializable> {
 
+	//git trial
 	
 	@Query("update PlanEntity set activeSwitch=:status where planId=:id")
 	public boolean deleteById(Integer id,String status);
