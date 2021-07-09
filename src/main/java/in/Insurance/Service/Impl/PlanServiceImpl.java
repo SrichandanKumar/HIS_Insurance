@@ -68,30 +68,37 @@ public class PlanServiceImpl implements PlanService {
 		
 		if(entity.isPresent()) {
 			PlanEntity planEntity = entity.get();
-		  if(planEntity.getActiveSwitch()!=null || planEntity.getActiveSwitch().equalsIgnoreCase("y") ) {
+		  if(planEntity.getActiveSwitch()!=null && planEntity.getActiveSwitch().equalsIgnoreCase("y") ) {
 			  String status="N";
-			    boolean deleteById = planRepo.deleteById(id, status);
-			    if(deleteById==true) {
-			    	return "Deleted successfully";
+			  System.out.println("Y block called"+id+status);
+			   planRepo.updateStatusById(id, status);
+			   
+			  return "Delete successfully";
+			    /* if(updateStatus!=null) {
+			     if(updateStatus.getActiveSwitch().equals("y")) {
+			    	return "Activate successfully";
 			    }
 			    else {
-			    	return "Not Deleted";
-			    }
+			    	return "Not Activate";
+			    }*/
+			   //  }
 		  }
-		  else  if(planEntity.getActiveSwitch()!=null || planEntity.getActiveSwitch().equalsIgnoreCase("N") ) {
+		  else  if(planEntity.getActiveSwitch()!=null && planEntity.getActiveSwitch().equalsIgnoreCase("N") ) {
 			  
 			  String status="Y";
-			    boolean deleteById = planRepo.deleteById(id, status);
-			    if(deleteById==true) {
-			    	return "Change to Active Successfully";
-			    }
-			    else {
-			    	return "Not changed";
-			    }
-		  }
+			     Integer updateStatus = planRepo.updateStatusById(id, status);
+			     System.out.println(updateStatus);
+//			    if(updateStatus .getActiveSwitch().equalsIgnoreCase("Y")) {
+//			    	return "Activate successfully";
+//			    }
+//			    else {
+//			    	return "Not Activate";
+//		    }
+			     return "Activate successfully";
+	  }
 		}
 		
-		return "Unable to complete soft delete";
+	return "Unable to complete soft delete";
 	}
 
 }
